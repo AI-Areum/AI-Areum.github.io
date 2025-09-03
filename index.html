@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<li class="ms-4 pb-10">
+<div class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full bg-brand-600"></div>
+<time class="text-xs text-gray-500">2015.03 – 2025.03</time>
+<h3 class="font-semibold">금융권 SI · 부장 · 프로젝트 리더</h3>
+<p class="mt-2 text-sm text-gray-600 dark:text-gray-300">분석/설계/개발/운영 전 단계 리드. 대형 ERP 고도화 및 보안/성능 최적화.</p>
+</li>
+<li class="ms-4 pb-10">
+<div class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full bg-brand-600"></div>
+<time class="text-xs text-gray-500">2025.04 – 현재</time>
+<h3 class="font-semibold">IT 스타트업 대표 (AssemERP)</h3>
+<p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Spring Boot 기반 ERP 제품화, B2B SaaS(자동 회계) MVP 개발.</p>
+</li>
+</ol>
+</div>
+</section>
+
+
+<!-- Contact -->
+<section id="contact" class="py-20 border-t border-gray-200/60 dark:border-white/10">
+<div class="max-w-6xl mx-auto px-4">
+<h2 class="text-2xl md:text-3xl font-bold">연락처</h2>
+<div class="mt-6 grid md:grid-cols-2 gap-6">
+<div class="p-6 rounded-2xl bg-white dark:bg-white/5 shadow-sm">
+<p class="text-sm text-gray-600 dark:text-gray-300">협업 문의는 이메일 또는 GitHub 이슈로 부탁드립니다.</p>
+<ul class="mt-4 space-y-2 text-sm">
+<li><i class="fa-regular fa-envelope me-2"></i> <a class="hover:underline" href="mailto:<!-- TODO: 이메일 -->contact@example.com">contact@example.com</a></li>
+<li><i class="fa-brands fa-github me-2"></i> <a class="hover:underline" href="https://github.com/AI-Areum">github.com/AI-Areum</a></li>
+<li><i class="fa-solid fa-location-dot me-2"></i> 서울, 대한민국 (UTC+9)</li>
+</ul>
+</div>
+<form class="p-6 rounded-2xl bg-white dark:bg-white/5 shadow-sm" onsubmit="event.preventDefault(); alert('메일to 링크 또는 폼 백엔드를 연결하세요.');">
+<div class="grid sm:grid-cols-2 gap-4">
+<input required placeholder="이름" class="px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 bg-transparent" />
+<input required placeholder="이메일" type="email" class="px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 bg-transparent" />
+</div>
+<textarea required placeholder="메시지" class="mt-4 w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 bg-transparent"></textarea>
+<button class="mt-4 px-5 py-3 rounded-xl bg-brand-600 text-white hover:bg-brand-700">보내기</button>
+</form>
+</div>
+</div>
+</section>
+
+
+<footer class="py-10">
+<div class="max-w-6xl mx-auto px-4 text-sm text-gray-500 flex flex-col md:flex-row items-center justify-between gap-4">
+<p>© <span id="yy"></span> <!-- TODO: 이름 -->Areum. All rights reserved.</p>
+<div class="flex items-center gap-4">
+<a href="#home" class="hover:text-brand-600">맨 위로 ↑</a>
+</div>
+</div>
+</footer>
+
+
+<script>
+// 모바일 메뉴
+const menuBtn = document.getElementById('menuBtn');
+const mobileNav = document.getElementById('mobileNav');
+menuBtn?.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+// 연도
+document.getElementById('yy').textContent = new Date().getFullYear();
+</script>
+
+
+<!-- JSON-LD (SEO) -->
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "Person",
+"name": "<!-- TODO: 이름 -->Areum Lee",
+"url": "https://AI-Areum.github.io/",
+"sameAs": ["https://github.com/AI-Areum"],
+"jobTitle": "Software Engineer",
+"worksFor": {"@type":"Organization","name":"AssemERP"}
+}
+</script>
+</body>
+</html>
