@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이아름 - 포트폴리오</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
-    <style>
+<style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
         :root {
@@ -239,6 +239,23 @@
             animation: fadeInRight 1s ease 0.4s both;
         }
 
+/*        .hero-avatar {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 5rem;
+            font-weight: bold;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+*/
+
         .hero-avatar {
             width: 350px;
             height: 350px;
@@ -253,6 +270,18 @@
             box-shadow: var(--shadow-xl);
             position: relative;
             animation: float 6s ease-in-out infinite;
+        
+            /* 추가 */
+            overflow: hidden; /* 원 밖의 이미지 잘라내기 */
+        }
+        
+        /* (추가) 이미지가 컨테이너를 꽉 채우고 비율 유지 */
+        .hero-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;  /* 여백 없이 꽉 채움 */
+            display: block;
+            border-radius: 50%; /* 가장자리 반짝임 방지용 */
         }
 
         .hero-avatar::before {
@@ -825,8 +854,9 @@
         .footer p {
             color: var(--text-light);
             font-size: 0.9rem;
-        }
-    </style>
+        }        
+</style>
+
 </head>
 <body>
 <!-- Navigation -->
@@ -864,7 +894,7 @@
             </div>
         </div>
         <div class="hero-image">
-            <div class="hero-avatar"><img src="/Areum.jpg" alt="이아름 프로필"></div>
+            <div class="hero-avatar"><img src="/Areum.png" alt="이아름 프로필"></div>
         </div>
     </div>
 </section>
@@ -1736,6 +1766,7 @@
 </style>
 </body>
 </html>
+
 
 
 
