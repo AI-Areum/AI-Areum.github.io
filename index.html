@@ -255,7 +255,7 @@
             animation: float 6s ease-in-out infinite;
 
             /* 추가 */
-            overflow: hidden; /* 원 밖의 이미지 잘라내기 */
+            overflow: hidden;
         }
         
         /* (추가) 이미지가 컨테이너를 꽉 채우고 비율 유지 */
@@ -264,7 +264,9 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            border-radius: 50%; /* 사진도 원형 */
+
+            /* 변경: 타원형(ellipse) 라운드 */
+            border-radius: 60% 40% / 55% 45%;
         }
 
         .hero-avatar::before {
@@ -1749,6 +1751,7 @@
 </style>
 </body>
 </html>
+
 
 
 
