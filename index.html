@@ -2184,5 +2184,33 @@
         background: #4f46e5;
     }
 </style>
+
+<script>
+/* contact section */
+(function(){
+  const f = document.getElementById('contact-form');
+  const s = document.getElementById('contact-status');
+  if (!f) return;
+  f.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    s.textContent = 'Sending...';
+    try {
+      const r = await fetch(f.action, {
+        method: 'POST',
+        body: new FormData(f),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (r.ok) {
+        s.textContent = 'Thanks! Your message has been sent.';
+        f.reset();
+      } else {
+        s.textContent = 'Sorry—could not send. Please try again later.';
+      }
+    } catch (_) {
+      s.textContent = 'Network error—please try again.';
+    }
+  });
+})();
+</script>
 </body>
 </html>
