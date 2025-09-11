@@ -827,7 +827,7 @@
             font-size: 0.9rem;
         }      
         
-        /* ===== Modal (Contact Form) ===== */
+		/* ===== Modal (Contact Form) ===== */
 		.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
 		  background:rgba(0,0,0,.35);opacity:0;visibility:hidden;transition:all .25s ease;z-index:1500;}
 		.modal.show{opacity:1;visibility:visible;}
@@ -843,8 +843,10 @@
 		}
 		@media (max-width:768px){.modal-card{padding:1.25rem;border-radius:16px;}}
 		
-		/* 접근성: 화면리더 전용 라벨 */
-		.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+		/* 화면리더 전용 라벨 */
+		.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+		  clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+
 </style>
 
 </head>
@@ -2236,7 +2238,6 @@
 </script> -->
 
 <script>
-/* contact section */
 (function(){
   const openBtn = document.getElementById('open-contact-form');
   const modal   = document.getElementById('contact-modal');
@@ -2259,8 +2260,9 @@
   modal.addEventListener('click', (e)=>{
     if (e.target.closest('[data-close]')) closeModal();
   });
-  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && modal.classList.contains('show')) closeModal(); });
-
+  document.addEventListener('keydown',(e)=>{
+    if(e.key==='Escape' && modal.classList.contains('show')) closeModal();
+  });
   function closeModal(){
     modal.classList.remove('show');
     modal.setAttribute('aria-hidden','true');
@@ -2280,7 +2282,7 @@
       if(r.ok){
         status.textContent = 'Thanks! Your message has been sent.';
         form.reset();
-        // 닫고 싶으면 주석 해제
+        // 전송 후 자동 닫기 원하면 주석 해제:
         // setTimeout(closeModal, 800);
       }else{
         status.textContent = 'Sorry—could not send. Please try again later.';
@@ -2292,6 +2294,54 @@
 })();
 </script>
 
+<!-- Contact Section -->
+<section id="contact" class="section section-alt">
+  <div class="container">
+    <div class="contact">
+      <div class="contact-title">함께 만들어가요</div>
+      <p class="contact-description">
+        새로운 프로젝트나 협업 기회에 대해 이야기하고 싶으시다면 언제든 연락주세요!
+      </p>
+
+      <div class="contact-info">
+        <!-- 이메일: mailto 노출 없이 모달 오픈 -->
+        <div class="contact-item fade-in">
+          <span class="material-symbols-outlined">mail</span>
+          <h4>이메일</h4>
+          <a href="#!" id="open-contact-form" aria-controls="contact-modal" aria-expanded="false">
+            보안 폼으로 문의하기
+          </a>
+        </div>
+
+        <div class="contact-item fade-in">
+          <span class="material-symbols-outlined">phone</span>
+          <h4>전화번호</h4>
+          <a href="tel:+821011111234">050-7871-5490</a>
+        </div>
+
+        <div class="contact-item fade-in">
+          <span class="material-symbols-outlined">code</span>
+          <h4>GitHub</h4>
+          <a href="https://github.com/AI-Areum" target="_blank">github.com/AI-Areum</a>
+        </div>
+      </div>
+
+      <!-- JS 비활성 브라우저 폴백(선택): 메일 노출 없이 제출 가능 -->
+      <noscript>
+        <form action="https://formspree.io/f/xnnbodjr" method="POST"
+              style="max-width:640px;margin:16px auto;display:grid;gap:12px;">
+          <input type="hidden" name="_subject"  value="Portfolio Contact — ai-areum (noscript)">
+          <input type="hidden" name="form_name" value="ai-areum-contact-noscript">
+          <input type="text"   name="name"     placeholder="Your name"   required>
+          <input type="email"  name="email"    placeholder="Your email"  required>
+          <textarea name="message" rows="5"     placeholder="Your message" required></textarea>
+          <button class="btn btn-primary" type="submit" style="justify-content:center;">Send</button>
+        </form>
+      </noscript>
+
+    </div>
+  </div>
+</section>
 
 <!-- Contact Modal -->
 <div id="contact-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="contact-modal-title">
@@ -2304,16 +2354,16 @@
     <h3 id="contact-modal-title" class="modal-title">Contact — Secure Form</h3>
     <p class="modal-desc">이메일을 노출하지 않고 안전하게 메시지를 보낼 수 있어요.</p>
 
-    <form id="contact-form" action="https://formspree.io/f/abcd1234" method="POST" novalidate>
-      <!-- 대시보드 라벨링 -->
-      <input type="hidden" name="_subject" value="Portfolio Contact — ai-areum">
+    <form id="contact-form" action="https://formspree.io/f/xnnbodjr" method="POST" novalidate>
+      <!-- 라벨링(운영용) -->
+      <input type="hidden" name="_subject"  value="Portfolio Contact — ai-areum">
       <input type="hidden" name="form_name" value="ai-areum-contact">
       <!-- 봇 차단 -->
-      <input type="text" name="_honey" style="display:none">
+      <input type="text"   name="_honey" style="display:none">
 
       <div class="modal-grid">
         <label class="sr-only" for="cf-name">Your name</label>
-        <input id="cf-name" type="text" name="name" placeholder="Your name" required>
+        <input id="cf-name" type="text"   name="name"  placeholder="Your name" required>
 
         <label class="sr-only" for="cf-email">Your email</label>
         <!-- replyTo 대신 email 사용: 회신 주소 인식률 ↑ -->
