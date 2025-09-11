@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이아름 - 포트폴리오</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="icon" href="favicon.ico?v=1">
 <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
@@ -921,7 +922,8 @@
                   기본 정책으로 적용하고, 원장/보조원장 대사·잔액/기간 검증 자동화를 통해 <br>
                   결산 리스크를 낮추며 고가용성 API와 배치 운영 표준을 수립합니다.<br>
                   배움을 중요한 가치로 삼아 새로운 기술을 익히고 적용해 가면서 성장하고 있으며, <br>
-                  다양한 IT 서적과 강의를 통해 지식을 지속적으로 확장하고 있습니다.<br>
+                  다양한 IT 서적과 강의를 통해 지식을 지속적으로 확장하고 있습니다.
+                  <span id="typing-text" aria-live="polite"></span>
                 </p>
             </div>
         </div>
@@ -2081,46 +2083,31 @@
 
     // Typing animation for hero subtitle
     const typingText = document.getElementById('typing-text');
-    const texts = [
-        '코드로 미래를 만들어갑니다',
-        '사용자 경험을 최우선으로 생각합니다',
-        '혁신적인 솔루션을 제공합니다',
-        '끊임없이 학습하고 성장합니다'
-    ];
-    let textIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-
-    function typeEffect() {
-        const currentText = texts[textIndex];
-
-        if (!isDeleting) {
-            typingText.textContent = currentText.substring(0, charIndex + 1);
-            charIndex++;
-
-            if (charIndex === currentText.length) {
-                setTimeout(() => {
-                    isDeleting = true;
-                }, 2000);
-            }
-        } else {
-            typingText.textContent = currentText.substring(0, charIndex - 1);
-            charIndex--;
-
-            if (charIndex === 0) {
-                isDeleting = false;
-                textIndex = (textIndex + 1) % texts.length;
-            }
-        }
-
-        const speed = isDeleting ? 50 : 100;
-        setTimeout(typeEffect, speed);
-    }
-
-    // Start typing animation after page load
-    window.addEventListener('load', () => {
-        setTimeout(typeEffect, 1000);
-    });
+	if (typingText) {                      // ← 요소가 있을 때만 실행
+	  const texts = [
+	    '코드로 미래를 만들어갑니다',
+	    '사용자 경험을 최우선으로 생각합니다',
+	    '혁신적인 솔루션을 제공합니다',
+	    '끊임없이 학습하고 성장합니다'
+	  ];
+	  let textIndex = 0, charIndex = 0, isDeleting = false;
+	
+	  function typeEffect() {
+	    const current = texts[textIndex];
+	    typingText.textContent = isDeleting
+	      ? current.substring(0, --charIndex)
+	      : current.substring(0, ++charIndex);
+	
+	    if (!isDeleting && charIndex === current.length) {
+	      setTimeout(() => isDeleting = true, 1200);
+	    } else if (isDeleting && charIndex === 0) {
+	      isDeleting = false;
+	      textIndex = (textIndex + 1) % texts.length;
+	    }
+	    setTimeout(typeEffect, isDeleting ? 50 : 100);
+	  }
+	  window.addEventListener('load', () => setTimeout(typeEffect, 600));
+	}
 
     // Add hover effects to project cards
     document.querySelectorAll('.project-card').forEach(card => {
