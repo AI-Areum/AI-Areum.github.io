@@ -1951,8 +1951,11 @@
     </div>
 </section>
 
+<!-- ===============================
+     CONTACT SECTION (UI + A11y)
+     =============================== -->
 <!-- Contact Section -->
-<!-- <section id="contact" class="section section-alt">
+<section id="contact" class="section section-alt">
   <div class="container">
     <div class="contact">
       <div class="contact-title">함께 만들어가요</div>
@@ -1960,22 +1963,34 @@
         새로운 프로젝트나 협업 기회에 대해 이야기하고 싶으시다면 언제든 연락주세요!
       </p>
 
-      기존 카드형 연락처
       <div class="contact-info">
+        <!-- 이메일: 링크 대신 모달 폼을 열어 mailto 노출 없이 모달 오픈 -->
         <div class="contact-item fade-in">
           <span class="material-symbols-outlined">mail</span>
           <h4>이메일</h4>
-          표시 텍스트와 mailto 주소를 동일하게 맞추세요
-          이메일 카드 내부
-		  <a href="#contact-modal" id="open-contact-form" aria-controls="contact-modal" aria-expanded="false">
-			  보안 폼으로 문의하기
-			</a>
+          <!-- aria-controls/expanded: 버튼-모달 연계 및 상태 노출 -->
+          <!-- <a href="#!" id="open-contact-form" aria-controls="contact-modal" aria-expanded="false">
+            보안 폼으로 문의하기
+          </a> -->
+          
+          <!-- <a href="emailModal.html" id="open-contact-form" aria-controls="contact-modal" aria-expanded="false"
+   		   aria-label="메일(보안) 폼으로 문의하기">
+			메일(보안) 폼으로 문의하기
+		  </a> -->
+		  
+		  <a href="contact.html" id="open-contact-form"    aria-label="메일(보안) 폼으로 문의하기">
+			보안 폼으로 문의하기
+		  </a>
         </div>
+
+		<!-- 전화: tel 링크로 즉시 발신 -->
         <div class="contact-item fade-in">
           <span class="material-symbols-outlined">phone</span>
           <h4>전화번호</h4>
-          <a href="tel:+821011111234">050-7871-5490</a>
+          050-7871-5490
         </div>
+
+		<!-- 깃허브 외부 링크 (새 탭) -->
         <div class="contact-item fade-in">
           <span class="material-symbols-outlined">code</span>
           <h4>GitHub</h4>
@@ -1983,33 +1998,9 @@
         </div>
       </div>
 
-      ▼ 여기부터: Formspree 폼
-      <form id="contact-form" action="https://formspree.io/f/xnnbodjr" method="POST" style="margin-top:24px;">
-        라벨링(대시보드 구분용)
-        <input type="hidden" name="_subject" value="Portfolio Contact — ai-areum">
-        <input type="hidden" name="form_name" value="ai-areum-contact">
-        Honeypot(봇 차단)
-        <input type="text" name="_honey" style="display:none">
-        성공시 리다이렉트가 필요하면: <input type="hidden" name="_next" value="https://AI-Areum.github.io/#contact">
-
-        <div style="display:grid; gap:12px; max-width:640px; margin:0 auto;">
-          <input type="text" name="name" placeholder="Your name" required
-                 style="padding:12px;border:1px solid var(--border-light);border-radius:10px;">
-          Formspree는 replyTo 또는 email 둘 다 인식. 안 되면 name='email'로 변경
-          <input type="email" name="replyTo" placeholder="Your email" required
-                 style="padding:12px;border:1px solid var(--border-light);border-radius:10px;">
-          <textarea name="message" rows="5" placeholder="Your message" required
-                    style="padding:12px;border:1px solid var(--border-light);border-radius:10px;"></textarea>
-          <button class="btn btn-primary" type="submit" style="justify-content:center;">Send</button>
-        </div>
-      </form>
-
-      <p id="contact-status" class="section-description" style="margin-top:12px;"></p>
-      ▲ 폼 끝
-
     </div>
   </div>
-</section> -->
+</section>
 
 <!-- Footer -->
 <footer class="footer">
@@ -2219,163 +2210,6 @@
     }
 </style>
 
-<!-- <script>
-
-(function(){
-  const f = document.getElementById('contact-form');
-  const s = document.getElementById('contact-status');
-  if (!f) return;
-  f.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    s.textContent = 'Sending...';
-    try {
-      const r = await fetch(f.action, {
-        method: 'POST',
-        body: new FormData(f),
-        headers: { 'Accept': 'application/json' }
-      });
-      if (r.ok) {
-        s.textContent = 'Thanks! Your message has been sent.';
-        f.reset();
-      } else {
-        s.textContent = 'Sorry—could not send. Please try again later.';
-      }
-    } catch (_) {
-      s.textContent = 'Network error—please try again.';
-    }
-  });
-})();
-</script> -->
-
-<!-- <script>
-/* ===============================
-   CONTACT MODAL & FORM (IIFE)
-=============================== */
-(function(){
-  // 트리거/모달/상태/폼 요소 캐싱
-  const openBtn = document.getElementById('open-contact-form');
-  const modal   = document.getElementById('contact-modal');
-  const status  = document.getElementById('contact-status');
-  const form    = document.getElementById('contact-form');
-  if (!openBtn || !modal || !form) return;	// 요소 없으면 조용히 종료
-
-  const firstField = document.getElementById('cf-name');	// 포커스 이동용
-
-  // [모달 열기] 버튼 클릭: 모달 표시 + 접근성 속성 업데이트
-  openBtn.addEventListener('click', (e)=>{
-    e.preventDefault();
-    modal.classList.add('show');
-    modal.setAttribute('aria-hidden','false');
-    openBtn.setAttribute('aria-expanded','true');
-    setTimeout(()=> firstField && firstField.focus(), 100);	// 첫 필드에 포커스
-  });
-
-  // [모달 닫기] 배경/닫기 버튼 클릭 시 닫기
-  modal.addEventListener('click', (e)=>{
-    if (e.target.closest('[data-close]')) closeModal();
-  });
-  
-  // [ESC]로 닫기
-  document.addEventListener('keydown',(e)=>{
-    if(e.key==='Escape' && modal.classList.contains('show')) closeModal();
-  });
-  
-  // [모달 닫기] 공통 함수: 표시/접근성 상태 초기화
-  function closeModal(){
-    modal.classList.remove('show');
-    modal.setAttribute('aria-hidden','true');
-    openBtn.setAttribute('aria-expanded','false');
-  }
-
-  // Formspree로 AJAX 제출: 성공/오류에 따라 상태 메시지 표시, 성공 시 폼 리셋 및 자동 닫기
-  form.addEventListener('submit', async (e)=>{
-    e.preventDefault();
-    status.textContent = 'Sending...';
-    try{
-      const r = await fetch(form.action, {
-        method:'POST',
-        body:new FormData(form),
-        headers:{ 'Accept':'application/json' }
-      });
-      if(r.ok){
-        status.textContent = 'Thanks! Your message has been sent.';
-        form.reset();
-        // 전송 후 자동 닫기
-        setTimeout(closeModal, 800);
-      }else{
-        status.textContent = 'Sorry—could not send. Please try again later.';
-      }
-    }catch(_){
-      status.textContent = 'Network error—please try again.';
-    }
-  });
-})();
-</script> -->
-
-<!-- ===============================
-     CONTACT SECTION (UI + A11y)
-     =============================== -->
-<!-- Contact Section -->
-<section id="contact" class="section section-alt">
-  <div class="container">
-    <div class="contact">
-      <div class="contact-title">함께 만들어가요</div>
-      <p class="contact-description">
-        새로운 프로젝트나 협업 기회에 대해 이야기하고 싶으시다면 언제든 연락주세요!
-      </p>
-
-      <div class="contact-info">
-        <!-- 이메일: 링크 대신 모달 폼을 열어 mailto 노출 없이 모달 오픈 -->
-        <div class="contact-item fade-in">
-          <span class="material-symbols-outlined">mail</span>
-          <h4>이메일</h4>
-          <!-- aria-controls/expanded: 버튼-모달 연계 및 상태 노출 -->
-          <!-- <a href="#!" id="open-contact-form" aria-controls="contact-modal" aria-expanded="false">
-            보안 폼으로 문의하기
-          </a> -->
-          
-          <!-- <a href="emailModal.html" id="open-contact-form" aria-controls="contact-modal" aria-expanded="false"
-   		   aria-label="메일(보안) 폼으로 문의하기">
-			메일(보안) 폼으로 문의하기
-		  </a> -->
-		  
-		  <a href="contact.html" id="open-contact-form"    aria-label="메일(보안) 폼으로 문의하기">
-			보안 폼으로 문의하기
-		  </a>
-        </div>
-
-		<!-- 전화: tel 링크로 즉시 발신 -->
-        <div class="contact-item fade-in">
-          <span class="material-symbols-outlined">phone</span>
-          <h4>전화번호</h4>
-          050-7871-5490
-        </div>
-
-		<!-- 깃허브 외부 링크 (새 탭) -->
-        <div class="contact-item fade-in">
-          <span class="material-symbols-outlined">code</span>
-          <h4>GitHub</h4>
-          <a href="https://github.com/AI-Areum" target="_blank">github.com/AI-Areum</a>
-        </div>
-      </div>
-
-      <!-- 자바스크립트 비활성 사용자용 폴백: 메일 노출 없이 Formspree에 직접 POST -->
-      <!-- <noscript>
-        <form action="https://formspree.io/f/xnnbodjr" method="POST"
-              style="max-width:640px;margin:16px auto;display:grid;gap:12px;">
-          운영 식별/제목
-          <input type="hidden" name="_subject"  value="Portfolio Contact — ai-areum (noscript)">
-          <input type="hidden" name="form_name" value="ai-areum-contact-noscript">
-          필수 입력들
-          <input type="text"   name="name"     placeholder="Your name"   required>
-          <input type="email"  name="email"    placeholder="Your email"  required>
-          <textarea name="message" rows="5"     placeholder="Your message" required></textarea>
-          <button class="btn btn-primary" type="submit" style="justify-content:center;">Send</button>
-        </form>
-      </noscript> -->
-    </div>
-  </div>
-</section>
 
 <!-- ===============================
      CONTACT MODAL (Dialog)
