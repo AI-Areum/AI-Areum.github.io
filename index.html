@@ -828,7 +828,8 @@
             font-size: 0.9rem;
         }      
         
-		/* ===== Modal (Contact Form) ===== */
+		/* 
+		// ===== Modal (Contact Form) 
 		.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
 		  background:rgba(0,0,0,.35);opacity:0;visibility:hidden;transition:all .25s ease;z-index:1500;}
 		.modal.show{opacity:1;visibility:visible;}
@@ -844,9 +845,10 @@
 		}
 		@media (max-width:768px){.modal-card{padding:1.25rem;border-radius:16px;}}
 		
-		/* 화면리더 전용 라벨 */
+		// 화면리더 전용 라벨
 		.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
-		  clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+		  clip:rect(0,0,0,0);white-space:nowrap;border:0;} 
+		*/
 
 </style>
 
@@ -2245,7 +2247,7 @@
 })();
 </script> -->
 
-<script>
+<!-- <script>
 /* ===============================
    CONTACT MODAL & FORM (IIFE)
 =============================== */
@@ -2308,7 +2310,7 @@
     }
   });
 })();
-</script>
+</script> -->
 
 <!-- ===============================
      CONTACT SECTION (UI + A11y)
@@ -2328,16 +2330,25 @@
           <span class="material-symbols-outlined">mail</span>
           <h4>이메일</h4>
           <!-- aria-controls/expanded: 버튼-모달 연계 및 상태 노출 -->
-          <a href="#!" id="open-contact-form" aria-controls="contact-modal" aria-expanded="false">
+          <!-- <a href="#!" id="open-contact-form" aria-controls="contact-modal" aria-expanded="false">
             보안 폼으로 문의하기
-          </a>
+          </a> -->
+          
+          <!-- <a href="emailModal.html" id="open-contact-form" aria-controls="contact-modal" aria-expanded="false"
+   		   aria-label="메일(보안) 폼으로 문의하기">
+			메일(보안) 폼으로 문의하기
+		  </a> -->
+		  
+		  <a href="contact.html" id="open-contact-form"    aria-label="메일(보안) 폼으로 문의하기">
+			보안 폼으로 문의하기
+		  </a>
         </div>
 
 		<!-- 전화: tel 링크로 즉시 발신 -->
         <div class="contact-item fade-in">
           <span class="material-symbols-outlined">phone</span>
           <h4>전화번호</h4>
-          <a href="tel:+821011111234">050-7871-5490</a>
+          050-7871-5490
         </div>
 
 		<!-- 깃허브 외부 링크 (새 탭) -->
@@ -2349,19 +2360,19 @@
       </div>
 
       <!-- 자바스크립트 비활성 사용자용 폴백: 메일 노출 없이 Formspree에 직접 POST -->
-      <noscript>
+      <!-- <noscript>
         <form action="https://formspree.io/f/xnnbodjr" method="POST"
               style="max-width:640px;margin:16px auto;display:grid;gap:12px;">
-          <!-- 운영 식별/제목 -->
+          운영 식별/제목
           <input type="hidden" name="_subject"  value="Portfolio Contact — ai-areum (noscript)">
           <input type="hidden" name="form_name" value="ai-areum-contact-noscript">
-          <!-- 필수 입력들 -->
+          필수 입력들
           <input type="text"   name="name"     placeholder="Your name"   required>
           <input type="email"  name="email"    placeholder="Your email"  required>
           <textarea name="message" rows="5"     placeholder="Your message" required></textarea>
           <button class="btn btn-primary" type="submit" style="justify-content:center;">Send</button>
         </form>
-      </noscript>
+      </noscript> -->
     </div>
   </div>
 </section>
@@ -2369,49 +2380,35 @@
 <!-- ===============================
      CONTACT MODAL (Dialog)
      =============================== -->
-<!-- role/aria-*로 접근성 준수, 외부 스크린리더에 제목 연결 -->
-<div id="contact-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="contact-modal-title">
-  <!-- 반투명 배경: data-close로 클릭 시 모달 닫기 -->
-  <div class="modal-backdrop" data-close></div>
-  <!-- 모달 카드 -->
-  <div class="modal-card">
-  	<!-- 닫기 버튼: data-close 속성으로 스크립트가 인식 -->
-    <button class="modal-close" type="button" aria-label="Close" data-close>
-      <span class="material-symbols-outlined">close</span>
-    </button>
+<script>
+(function(){
+  const trigger = document.getElementById('open-contact-form');
+  if (!trigger) return;
+  const url = trigger.getAttribute('href');
 
-	<!-- 모달 제목/설명 -->
-    <h3 id="contact-modal-title" class="modal-title">Contact — Secure Form</h3>
-    <p class="modal-desc">이메일을 노출하지 않고 안전하게 메시지를 보낼 수 있어요.</p>
+  trigger.addEventListener('click', function(e){
+    e.preventDefault();
 
-	<!-- Formspree 제출 폼: novalidate로 브라우저 기본 검증 끄고 JS로 처리 가능 -->
-    <form id="contact-form" action="https://formspree.io/f/xnnbodjr" method="POST" novalidate>
-      <!-- 운영 라벨링(제목/폼명) -->
-      <input type="hidden" name="_subject"  value="Portfolio Contact — ai-areum">
-      <input type="hidden" name="form_name" value="ai-areum-contact">
-      <!-- 허니팟(봇차단): 실제 사용자에겐 보이지 않음. 봇이 채우면 스팸으로 간주 -->
-      <input type="text"   name="_honey" style="display:none">
+    const w = 520, h = 720;
+    const left = Math.max(0, (screen.width - w) / 2);
+    const top  = Math.max(0, (screen.height - h) / 2);
 
-	  <!-- 입력 필드 그리드 -->
-      <div class="modal-grid">
-        <label class="sr-only" for="cf-name">Your name</label>
-        <input id="cf-name" type="text"   name="name"  placeholder="Your name" required>
+    let popup = null;
+    try {
+      popup = window.open(url, 'secureContact',
+        `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`);
+    } catch(_) {}
 
-        <label class="sr-only" for="cf-email">Your email</label>
-        <!-- replyTo보다 email 필드가 회신 주소 인식률이 더 좋음 -->
-        <input id="cf-email" type="email" name="email" placeholder="Your email" required>
-
-        <label class="sr-only" for="cf-msg">Your message</label>
-        <textarea id="cf-msg" name="message" rows="5" placeholder="Your message" required></textarea>
-
-        <button class="btn btn-primary" type="submit" style="justify-content:center;">Send</button>
-      </div>
-    </form>
-
-	<!-- AJAX 처리 결과(성공/오류) 메시지 표시 영역 -->
-    <p id="contact-status" class="section-description" style="margin-top:12px;"></p>
-  </div>
-</div>
+    if (!popup) {
+      // 팝업 차단 시 동일 탭으로 이동
+      window.location.href = url;
+      return;
+    }
+    try { popup.opener = null; } catch(_) {}
+    trigger.setAttribute('aria-expanded','true');
+  });
+})();
+</script>
 
 </body>
 </html>
