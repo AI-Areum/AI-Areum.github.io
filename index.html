@@ -7,6 +7,8 @@
     <title>이아름 - 포트폴리오</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
     <link rel="icon" href="favicon.ico?v=1">
+    <link rel="icon"
+      href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="%235D7BFF"/><text x="50%" y="58%" font-size="34" text-anchor="middle" fill="white" font-family="Arial,Helvetica,sans-serif">A</text></svg>'>
 <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
@@ -828,28 +830,6 @@
             font-size: 0.9rem;
         }      
         
-		/* 
-		// ===== Modal (Contact Form) 
-		.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
-		  background:rgba(0,0,0,.35);opacity:0;visibility:hidden;transition:all .25s ease;z-index:1500;}
-		.modal.show{opacity:1;visibility:visible;}
-		.modal-backdrop{position:absolute;inset:0;}
-		.modal-card{position:relative;background:var(--bg-card);border-radius:20px;box-shadow:var(--shadow-xl);
-		  width:min(640px,92vw);padding:2rem;border:1px solid var(--border-light);}
-		.modal-title{font-family:'Playfair Display',serif;font-size:1.5rem;margin:0 0 .25rem;}
-		.modal-desc{color:var(--text-secondary);margin:0 0 1.25rem;}
-		.modal-close{position:absolute;top:.75rem;right:.75rem;border:none;background:transparent;cursor:pointer;}
-		.modal-grid{display:grid;gap:12px;}
-		.modal-grid input,.modal-grid textarea{
-		  padding:12px;border:1px solid var(--border-light);border-radius:10px;background:#fff;
-		}
-		@media (max-width:768px){.modal-card{padding:1.25rem;border-radius:16px;}}
-		
-		// 화면리더 전용 라벨
-		.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
-		  clip:rect(0,0,0,0);white-space:nowrap;border:0;} 
-		*/
-
 </style>
 
 </head>
@@ -2218,7 +2198,7 @@
 (function(){
   const trigger = document.getElementById('open-contact-form');
   if (!trigger) return;
-  const url = trigger.getAttribute('href');
+  const url = '/emailModal.html'; 
 
   trigger.addEventListener('click', function(e){
     e.preventDefault();
