@@ -1950,7 +1950,7 @@
 </section>
 
 <!-- Contact Section -->
-<section id="contact" class="section section-alt">
+<!-- <section id="contact" class="section section-alt">
   <div class="container">
     <div class="contact">
       <div class="contact-title">함께 만들어가요</div>
@@ -1958,13 +1958,13 @@
         새로운 프로젝트나 협업 기회에 대해 이야기하고 싶으시다면 언제든 연락주세요!
       </p>
 
-      <!-- 기존 카드형 연락처 -->
+      기존 카드형 연락처
       <div class="contact-info">
         <div class="contact-item fade-in">
           <span class="material-symbols-outlined">mail</span>
           <h4>이메일</h4>
-          <!-- 표시 텍스트와 mailto 주소를 동일하게 맞추세요 -->
-          <!-- 이메일 카드 내부 -->
+          표시 텍스트와 mailto 주소를 동일하게 맞추세요
+          이메일 카드 내부
 		  <a href="#contact-modal" id="open-contact-form" aria-controls="contact-modal" aria-expanded="false">
 			  보안 폼으로 문의하기
 			</a>
@@ -1981,19 +1981,19 @@
         </div>
       </div>
 
-      <!-- ▼ 여기부터: Formspree 폼 -->
+      ▼ 여기부터: Formspree 폼
       <form id="contact-form" action="https://formspree.io/f/xnnbodjr" method="POST" style="margin-top:24px;">
-        <!-- 라벨링(대시보드 구분용) -->
+        라벨링(대시보드 구분용)
         <input type="hidden" name="_subject" value="Portfolio Contact — ai-areum">
         <input type="hidden" name="form_name" value="ai-areum-contact">
-        <!-- Honeypot(봇 차단) -->
+        Honeypot(봇 차단)
         <input type="text" name="_honey" style="display:none">
-        <!-- 성공시 리다이렉트가 필요하면: <input type="hidden" name="_next" value="https://AI-Areum.github.io/#contact"> -->
+        성공시 리다이렉트가 필요하면: <input type="hidden" name="_next" value="https://AI-Areum.github.io/#contact">
 
         <div style="display:grid; gap:12px; max-width:640px; margin:0 auto;">
           <input type="text" name="name" placeholder="Your name" required
                  style="padding:12px;border:1px solid var(--border-light);border-radius:10px;">
-          <!-- Formspree는 replyTo 또는 email 둘 다 인식. 안 되면 name='email'로 변경 -->
+          Formspree는 replyTo 또는 email 둘 다 인식. 안 되면 name='email'로 변경
           <input type="email" name="replyTo" placeholder="Your email" required
                  style="padding:12px;border:1px solid var(--border-light);border-radius:10px;">
           <textarea name="message" rows="5" placeholder="Your message" required
@@ -2003,11 +2003,11 @@
       </form>
 
       <p id="contact-status" class="section-description" style="margin-top:12px;"></p>
-      <!-- ▲ 폼 끝 -->
+      ▲ 폼 끝
 
     </div>
   </div>
-</section>
+</section> -->
 
 <!-- Footer -->
 <footer class="footer">
@@ -2016,28 +2016,35 @@
     </div>
 </footer>
 
-<!-- Scroll to Top Button -->
+<!-- Scroll to Top Button: 일정 스크롤 높이에서 나타나 맨 위로 부드럽게 이동 -->
 <button class="scroll-top" id="scrollTop">
     <span class="material-symbols-outlined">keyboard_arrow_up</span>
 </button>
 
 <script>
-    // Navbar scroll effect
+
+	/* ===============================
+	GLOBAL INTERACTIONS / EFFECTS
+	=============================== */
+
+    // 1) navbar 스크롤 효과: 스크롤이 100px을 넘으면 클래스 'scrolled' 부여(배경색/그림자 등 스타일링 용도)
     window.addEventListener('scroll', () => {
         const navbar = document.getElementById('navbar');
-        if (window.scrollY > 100) {
+        if (window.scrollY > 100) 
+        {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
     });
-
-    // Smooth scrolling for navigation links
+	
+ 	// 2) 내부 앵커(#id) 클릭 시 부드러운 스크롤 이동
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
+            if (target) 
+            {
                 target.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
@@ -2046,7 +2053,7 @@
         });
     });
 
-    // Scroll animations
+ 	// 3) Scroll animations: viewport에 10% 이상 보이면 .visible 클래스 추가(페이드인 등 CSS와 연계)
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -2060,14 +2067,13 @@
         });
     }, observerOptions);
 
-    // Observe all fade-in elements
+ 	// .fade-in 요소들을 관찰 시작
     document.querySelectorAll('.fade-in').forEach(el => {
         observer.observe(el);
     });
 
-    // Scroll to top functionality
+ 	// 4) 스크롤 탑 버튼 표시/숨김 토글 (300px 초과 시 표시)
     const scrollTopBtn = document.getElementById('scrollTop');
-
     window.addEventListener('scroll', () => {
         if (window.pageYOffset > 300) {
             scrollTopBtn.classList.add('show');
@@ -2076,6 +2082,7 @@
         }
     });
 
+ 	// 5) 스크롤 탑 버튼 클릭 시 상단으로 부드럽게 이동
     scrollTopBtn.addEventListener('click', () => {
         window.scrollTo({
             top: 0,
@@ -2083,7 +2090,7 @@
         });
     });
 
-    // Typing animation for hero subtitle
+    // 6) 히어로 서브타이틀 타이핑 애니메이션: 지정된 문구 배열을 루프로 타이핑/백스페이스
     const typingText = document.getElementById('typing-text');
 	if (typingText) {                      // ← 요소가 있을 때만 실행
 	  const texts = [
@@ -2100,18 +2107,22 @@
 	      ? current.substring(0, --charIndex)
 	      : current.substring(0, ++charIndex);
 	
+	    // 문구 끝에 도달하면 잠시 대기 후 삭제 시작
 	    if (!isDeleting && charIndex === current.length) {
 	      setTimeout(() => isDeleting = true, 1200);
-	    } else if (isDeleting && charIndex === 0) {
+	    } 
+	 	// 모두 삭제되면 다음 문구로 전환
+	    else if (isDeleting && charIndex === 0) {
 	      isDeleting = false;
 	      textIndex = (textIndex + 1) % texts.length;
 	    }
 	    setTimeout(typeEffect, isDeleting ? 50 : 100);
 	  }
+	  // 페이지 로드 후 약간의 지연 뒤 애니메이션 시작
 	  window.addEventListener('load', () => setTimeout(typeEffect, 600));
 	}
 
-    // Add hover effects to project cards
+	// 7) 프로젝트 카드 호버 인터랙션: 살짝 떠오르는(translate/scale) 효과
     document.querySelectorAll('.project-card').forEach(card => {
         card.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-10px) scale(1.02)';
@@ -2122,7 +2133,7 @@
         });
     });
 
-    // Add click effects to buttons
+ 	// 8) 버튼/프로젝트 링크 클릭 시 리플(ripple) 효과: 클릭 지점에서 원형 파동 애니메이션
     document.querySelectorAll('.btn, .project-link').forEach(btn => {
         btn.addEventListener('click', function(e) {
             // Create ripple effect
@@ -2145,7 +2156,7 @@
         });
     });
 
-    // Add parallax effect to hero section
+ 	// 9) hero section 패럴랙스: 스크롤에 비례해 Y축으로 살짝 이동
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
         const hero = document.querySelector('.hero');
@@ -2156,16 +2167,22 @@
 </script>
 
 <style>
+	/* ===============================
+     VISUAL EFFECTS (CSS)
+     =============================== */
+
+	/* 클릭 리플 스팬의 기본 설정 및 애니메이션 연결 */
     /* Ripple effect */
     .ripple {
         position: absolute;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.3);
         transform: scale(0);
-        animation: ripple-animation 0.6s linear;
-        pointer-events: none;
+        animation: ripple-animation 0.6s linear;	/* 0.6초간 확산/사라짐 */
+        pointer-events: none;						/* 클릭 차단 X */
     }
-
+    
+	/* 리플: 스케일 업 + 투명도 0으로 페이드아웃 */
     @keyframes ripple-animation {
         to {
             transform: scale(4);
@@ -2173,12 +2190,14 @@
         }
     }
 
+	/* 리플이 부모 밖으로 넘치지 않도록 설정   */
     /* Enhanced button hover effects */
     .btn, .project-link {
         position: relative;
         overflow: hidden;
     }
 
+	/* 커스텀 스크롤바 (WebKit 계열 브라우저) */
     /* Custom scrollbar */
     ::-webkit-scrollbar {
         width: 8px;
@@ -2227,38 +2246,46 @@
 </script> -->
 
 <script>
+/* ===============================
+   CONTACT MODAL & FORM (IIFE)
+=============================== */
 (function(){
+  // 트리거/모달/상태/폼 요소 캐싱
   const openBtn = document.getElementById('open-contact-form');
   const modal   = document.getElementById('contact-modal');
   const status  = document.getElementById('contact-status');
   const form    = document.getElementById('contact-form');
-  if (!openBtn || !modal || !form) return;
+  if (!openBtn || !modal || !form) return;	// 요소 없으면 조용히 종료
 
-  const firstField = document.getElementById('cf-name');
+  const firstField = document.getElementById('cf-name');	// 포커스 이동용
 
-  // 모달 열기
+  // [모달 열기] 버튼 클릭: 모달 표시 + 접근성 속성 업데이트
   openBtn.addEventListener('click', (e)=>{
     e.preventDefault();
     modal.classList.add('show');
     modal.setAttribute('aria-hidden','false');
     openBtn.setAttribute('aria-expanded','true');
-    setTimeout(()=> firstField && firstField.focus(), 100);
+    setTimeout(()=> firstField && firstField.focus(), 100);	// 첫 필드에 포커스
   });
 
-  // 모달 닫기(배경/닫기 버튼/ESC)
+  // [모달 닫기] 배경/닫기 버튼 클릭 시 닫기
   modal.addEventListener('click', (e)=>{
     if (e.target.closest('[data-close]')) closeModal();
   });
+  
+  // [ESC]로 닫기
   document.addEventListener('keydown',(e)=>{
     if(e.key==='Escape' && modal.classList.contains('show')) closeModal();
   });
+  
+  // [모달 닫기] 공통 함수: 표시/접근성 상태 초기화
   function closeModal(){
     modal.classList.remove('show');
     modal.setAttribute('aria-hidden','true');
     openBtn.setAttribute('aria-expanded','false');
   }
 
-  // Formspree 전송 (AJAX)
+  // Formspree로 AJAX 제출: 성공/오류에 따라 상태 메시지 표시, 성공 시 폼 리셋 및 자동 닫기
   form.addEventListener('submit', async (e)=>{
     e.preventDefault();
     status.textContent = 'Sending...';
@@ -2271,8 +2298,8 @@
       if(r.ok){
         status.textContent = 'Thanks! Your message has been sent.';
         form.reset();
-        // 전송 후 자동 닫기 원하면 주석 해제:
-        // setTimeout(closeModal, 800);
+        // 전송 후 자동 닫기
+        setTimeout(closeModal, 800);
       }else{
         status.textContent = 'Sorry—could not send. Please try again later.';
       }
@@ -2283,6 +2310,9 @@
 })();
 </script>
 
+<!-- ===============================
+     CONTACT SECTION (UI + A11y)
+     =============================== -->
 <!-- Contact Section -->
 <section id="contact" class="section section-alt">
   <div class="container">
@@ -2293,21 +2323,24 @@
       </p>
 
       <div class="contact-info">
-        <!-- 이메일: mailto 노출 없이 모달 오픈 -->
+        <!-- 이메일: 링크 대신 모달 폼을 열어 mailto 노출 없이 모달 오픈 -->
         <div class="contact-item fade-in">
           <span class="material-symbols-outlined">mail</span>
           <h4>이메일</h4>
+          <!-- aria-controls/expanded: 버튼-모달 연계 및 상태 노출 -->
           <a href="#!" id="open-contact-form" aria-controls="contact-modal" aria-expanded="false">
             보안 폼으로 문의하기
           </a>
         </div>
 
+		<!-- 전화: tel 링크로 즉시 발신 -->
         <div class="contact-item fade-in">
           <span class="material-symbols-outlined">phone</span>
           <h4>전화번호</h4>
           <a href="tel:+821011111234">050-7871-5490</a>
         </div>
 
+		<!-- 깃허브 외부 링크 (새 탭) -->
         <div class="contact-item fade-in">
           <span class="material-symbols-outlined">code</span>
           <h4>GitHub</h4>
@@ -2315,47 +2348,57 @@
         </div>
       </div>
 
-      <!-- JS 비활성 브라우저 폴백(선택): 메일 노출 없이 제출 가능 -->
+      <!-- 자바스크립트 비활성 사용자용 폴백: 메일 노출 없이 Formspree에 직접 POST -->
       <noscript>
         <form action="https://formspree.io/f/xnnbodjr" method="POST"
               style="max-width:640px;margin:16px auto;display:grid;gap:12px;">
+          <!-- 운영 식별/제목 -->
           <input type="hidden" name="_subject"  value="Portfolio Contact — ai-areum (noscript)">
           <input type="hidden" name="form_name" value="ai-areum-contact-noscript">
+          <!-- 필수 입력들 -->
           <input type="text"   name="name"     placeholder="Your name"   required>
           <input type="email"  name="email"    placeholder="Your email"  required>
           <textarea name="message" rows="5"     placeholder="Your message" required></textarea>
           <button class="btn btn-primary" type="submit" style="justify-content:center;">Send</button>
         </form>
       </noscript>
-
     </div>
   </div>
 </section>
 
-<!-- Contact Modal -->
+<!-- ===============================
+     CONTACT MODAL (Dialog)
+     =============================== -->
+<!-- role/aria-*로 접근성 준수, 외부 스크린리더에 제목 연결 -->
 <div id="contact-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="contact-modal-title">
+  <!-- 반투명 배경: data-close로 클릭 시 모달 닫기 -->
   <div class="modal-backdrop" data-close></div>
+  <!-- 모달 카드 -->
   <div class="modal-card">
+  	<!-- 닫기 버튼: data-close 속성으로 스크립트가 인식 -->
     <button class="modal-close" type="button" aria-label="Close" data-close>
       <span class="material-symbols-outlined">close</span>
     </button>
 
+	<!-- 모달 제목/설명 -->
     <h3 id="contact-modal-title" class="modal-title">Contact — Secure Form</h3>
     <p class="modal-desc">이메일을 노출하지 않고 안전하게 메시지를 보낼 수 있어요.</p>
 
+	<!-- Formspree 제출 폼: novalidate로 브라우저 기본 검증 끄고 JS로 처리 가능 -->
     <form id="contact-form" action="https://formspree.io/f/xnnbodjr" method="POST" novalidate>
-      <!-- 라벨링(운영용) -->
+      <!-- 운영 라벨링(제목/폼명) -->
       <input type="hidden" name="_subject"  value="Portfolio Contact — ai-areum">
       <input type="hidden" name="form_name" value="ai-areum-contact">
-      <!-- 봇 차단 -->
+      <!-- 허니팟(봇차단): 실제 사용자에겐 보이지 않음. 봇이 채우면 스팸으로 간주 -->
       <input type="text"   name="_honey" style="display:none">
 
+	  <!-- 입력 필드 그리드 -->
       <div class="modal-grid">
         <label class="sr-only" for="cf-name">Your name</label>
         <input id="cf-name" type="text"   name="name"  placeholder="Your name" required>
 
         <label class="sr-only" for="cf-email">Your email</label>
-        <!-- replyTo 대신 email 사용: 회신 주소 인식률 ↑ -->
+        <!-- replyTo보다 email 필드가 회신 주소 인식률이 더 좋음 -->
         <input id="cf-email" type="email" name="email" placeholder="Your email" required>
 
         <label class="sr-only" for="cf-msg">Your message</label>
@@ -2365,6 +2408,7 @@
       </div>
     </form>
 
+	<!-- AJAX 처리 결과(성공/오류) 메시지 표시 영역 -->
     <p id="contact-status" class="section-description" style="margin-top:12px;"></p>
   </div>
 </div>
