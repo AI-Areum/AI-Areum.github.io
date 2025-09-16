@@ -254,17 +254,26 @@
 
     // 취소: 팝업이면 닫기, 아니면 뒤로가기/홈
     cancelBtn.addEventListener('click', ()=>{
-      if (window.opener && !window.opener.closed) {
-    	// 팝업으로 열린 경우: 창 닫기
-        window.close();
-      } else if (document.referrer && history.length > 1) {
-    	// 일반 브라우저 이동: 뒤로가기
-        history.back();
-      } else {
-    	// referrer 없거나 단독 접근: 메인 페이지로 이동
-        window.location.replace('/');
-      }
-    });
+    	
+    	// 1) 팝업/새 창으로 열린 경우를 가정하고 우선 닫기 시도
+    	window.close();
+    
+    	// 2) 일부 브라우저는 스크립트가 연 창만 닫기 허용 → 실패 시 폴백
+    	setTimeout(()=>{
+   	      try {
+   	        if (!window.closed) {
+   	          if (document.referrer && history.length > 1) {
+   	            history.back();
+   	          } else {
+   	            window.location.replace('/');
+   	          }
+   	        }
+   	      } catch (_) {
+   	        // 예외 시에도 안전하게 홈으로
+   	        window.location.replace('/');
+   	      }
+   	    }, 120);
+   	  });
 
     // 제출
     form.addEventListener('submit', async (e)=>{
