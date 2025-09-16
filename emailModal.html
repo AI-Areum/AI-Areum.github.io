@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AI-Areum — Portfolio | Contact — Secure Form</title>
+  <meta name="description" content="AI-Areum 포트폴리오 보안 문의 폼. 협업 및 프로젝트 문의를 안전하게 전송하세요.">
+  <meta name="robots" content="noindex,follow">
+
+  <!-- 디자인 리소스(동일 톤) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --ink:#111827;
+      --muted:#6b7280;
+      --brand:#5D7BFF;
+      --ok:#065f46; --ok-bg:#ecfdf5; --ok-bd:#10b981;
+      --ng:#991b1b; --ng-bg:#fef2f2; --ng-bd:#ef4444;
+      --ring:#5D7BFF;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(16,24,40,.06),0 2px 6px rgba(16,24,40,.06);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;background:var(--bg);color:var(--ink);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,"Apple Color Emoji","Segoe UI Emoji";
+      line-height:1.55;
+    }
+    .container{max-width:960px;margin:0 auto;padding:24px}
+    .card{
+      background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+      overflow:hidden;margin:24px auto;max-width:720px;
+    }
+    .card-header{
+      background:linear-gradient(135deg,#5D7BFF 0%,#78A9FF 100%);
+      color:#fff;padding:28px 28px 22px;
+    }
+    .card-header h1{
+      margin:0;font-family:"Playfair Display",serif;font-weight:600;font-size:1.6rem;
+    }
+    .card-header p{margin:.5rem 0 0;opacity:.95}
+    .card-body{padding:24px}
+    .sr{position:absolute !important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    form{display:grid;gap:14px}
+    label{font-weight:600}
+    input[type="text"],input[type="email"],select,textarea{
+      width:100%;padding:12px 14px;border:1px solid #e5e7eb;border-radius:10px;background:#fff;color:var(--ink);
+      font:inherit;transition:box-shadow .15s,border-color .15s;
+    }
+    input:focus,select:focus,textarea:focus{
+      outline:none;border-color:var(--ring);box-shadow:0 0 0 4px rgba(93,123,255,.2);
+    }
+    .field-error{margin:.25rem 0 0;color:#b91c1c;font-size:.85rem}
+    .alert{margin:4px 0 12px;padding:12px;border-radius:10px;font-size:.95rem;border:1px solid transparent}
+    .alert.success{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-bd)}
+    .alert.error{background:var(--ng-bg);color:var(--ng);border-color:var(--ng-bd)}
+    .btn-row{display:flex;gap:10px;align-items:center;justify-content:flex-end;margin-top:8px}
+    .btn{display:inline-flex;align-items:center;gap:8px;border-radius:12px;border:1px solid transparent;padding:10px 14px;cursor:pointer;font-weight:600}
+    .btn-primary{background:var(--brand);color:#fff}
+    .btn-secondary{background:#fff;color:var(--ink);border-color:#e5e7eb}
+    .btn[disabled]{opacity:.6;cursor:not-allowed}
+    .spinner{display:inline-block;width:1em;height:1em;border:.2em solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .8s linear infinite;vertical-align:-2px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .footer-note{color:var(--muted);font-size:.9rem;text-align:center;margin-top:8px}
+    .meta{display:flex;gap:8px;align-items:center;color:#fff;opacity:.9;font-size:.9rem;margin-top:8px}
+    .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 600,'GRAD' 0,'opsz' 24;vertical-align:-4px}
+
+    /* 포커스 가시성 */
+    a:focus-visible, button:focus-visible { outline:3px solid var(--ring); outline-offset:3px; border-radius:8px; }
+
+    /* 허니팟 */
+    .honeypot{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+
+    /* 작은 화면 */
+    @media (max-width:560px){
+      .card-header h1{font-size:1.35rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav aria-label="Breadcrumb">
+      <a class="btn btn-secondary" href="/" rel="noopener">← 돌아가기</a>
+    </nav>
+
+    <main id="main" class="card" aria-labelledby="contact-title">
+      <header class="card-header">
+        <h1 id="contact-title">Contact — Secure Form</h1>
+        <p>프로젝트/협업 문의를 안전하게 전송하세요. 운영자 이메일은 공개하지 않습니다.</p>
+        <div class="meta">
+          <span class="material-symbols-outlined" aria-hidden="true">shield_lock</span>
+          <span>Formspree 안전 전송 · 도메인 제한 권장</span>
+        </div>
+      </header>
+
+      <section class="card-body" aria-describedby="contact-desc">
+        <p id="contact-desc" class="sr">아래 폼을 작성하여 문의를 전송하세요. 모든 필드는 필수입니다.</p>
+
+        <!-- 전역 알럿 -->
+        <div id="form-alert" class="alert" role="alert" aria-live="assertive" aria-atomic="true" hidden></div>
+
+        <!-- 폼 -->
+        <form id="secure-contact-form" action="https://formspree.io/f/xnnbodjr" method="POST" novalidate>
+          <!-- 운영 식별/태그 -->
+          <input type="hidden" name="_subject" value="Portfolio Contact — AI-Areum (web)">
+          <input type="hidden" name="form_name" value="ai-areum-contact-web">
+          <input type="hidden" name="source" value="AI-Areum.github.io/emailModal.html">
+          <input type="hidden" name="ts" value="">
+          <input type="hidden" name="_gotcha" value=""> <!-- Formspree 호환 허니팟 -->
+
+          <div>
+            <label for="name">이름</label>
+            <input id="name" name="name" type="text" autocomplete="name" required aria-describedby="name-error">
+            <p id="name-error" class="field-error" role="alert" aria-live="polite" hidden></p>
+          </div>
+
+          <div>
+            <label for="email">이메일</label>
+            <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required aria-describedby="email-error">
+            <p id="email-error" class="field-error" role="alert" aria-live="polite" hidden></p>
+          </div>
+
+          <div>
+            <label for="category">카테고리</label>
+            <select id="category" name="category" required aria-describedby="category-error">
+              <option value="">선택하세요</option>
+              <option value="General">일반 문의</option>
+              <option value="Collaboration">협업 제안</option>
+              <option value="Speaking">강연/세미나</option>
+            </select>
+            <p id="category-error" class="field-error" role="alert" aria-live="polite" hidden></p>
+          </div>
+
+          <div>
+            <label for="message">메시지</label>
+            <textarea id="message" name="message" rows="6" required aria-describedby="message-error"></textarea>
+            <p id="message-error" class="field-error" role="alert" aria-live="polite" hidden></p>
+          </div>
+
+          <!-- 추가 허니팟(시각/스크린리더 숨김) -->
+          <div class="honeypot" aria-hidden="true">
+            <label for="website">웹사이트(작성하지 마세요)</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="btn-row">
+            <button id="cancel-btn" type="button" class="btn btn-secondary">취소</button>
+            <button id="submit-btn" type="submit" class="btn btn-primary" aria-live="polite">
+              <span class="spinner" aria-hidden="true" hidden></span>
+              <span class="btn-text">보내기</span>
+            </button>
+          </div>
+        </form>
+
+        <p class="footer-note">※ 전송은 Formspree를 통해 처리되며, 운영자 이메일은 페이지에 노출되지 않습니다.</p>
+
+        <!-- 자바스크립트 비활성화 대비 폴백 -->
+        <noscript>
+          <form action="https://formspree.io/f/xnnbodjr" method="POST"
+                style="max-width:640px;margin:16px auto;display:grid;gap:12px;">
+            <!-- 운영 식별/제목 -->
+            <input type="hidden" name="_subject"  value="Portfolio Contact — ai-areum (noscript)">
+            <input type="hidden" name="form_name" value="ai-areum-contact-noscript">
+            <!-- 필수 입력들 -->
+            <input type="text"   name="name"      placeholder="Your name"   required>
+            <input type="email"  name="email"     placeholder="Your email"  required>
+            <textarea name="message" rows="5"     placeholder="Your message" required></textarea>
+            <button class="btn btn-primary" type="submit" style="justify-content:center;">Send</button>
+          </form>
+        </noscript>
+      </section>
+    </main>
+  </div>
+
+  <script>
+  (function(){
+    const form = document.getElementById('secure-contact-form');
+    const alertBox = document.getElementById('form-alert');
+    const submitBtn = document.getElementById('submit-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
+    const spinner = submitBtn.querySelector('.spinner');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const honey = document.getElementById('website');
+
+    // 필드 참조
+    const fields = [
+      { el: document.getElementById('name'),     err: document.getElementById('name-error'),     label:'이름' },
+      { el: document.getElementById('email'),    err: document.getElementById('email-error'),    label:'이메일', type:'email' },
+      { el: document.getElementById('category'), err: document.getElementById('category-error'), label:'카테고리' },
+      { el: document.getElementById('message'),  err: document.getElementById('message-error'),  label:'메시지' }
+    ];
+
+    // 초기화
+    form.querySelector('input[name="ts"]').value = String(Date.now());
+    form.querySelector('input[name="_gotcha"]').value = "";
+
+    function validateField({el, err, label, type}) {
+      let valid = true, msg = '';
+      const val = el.value.trim();
+      if (!val) { valid = false; msg = `${label}은(는) 필수 입력입니다.`; }
+      else if (type === 'email') {
+        const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+        if (!ok) { valid = false; msg = '올바른 이메일 주소를 입력하세요.'; }
+      }
+      if (!valid){
+        el.setAttribute('aria-invalid','true');
+        err.textContent = msg; err.hidden = false;
+      } else {
+        el.removeAttribute('aria-invalid');
+        err.textContent = ''; err.hidden = true;
+      }
+      return valid;
+    }
+
+    function validateForm(){
+      let first = null;
+      const ok = fields.every(f => {
+        const v = validateField(f);
+        if (!v && !first) first = f.el;
+        return v;
+      });
+      if (!ok && first) first.focus();
+      return ok;
+    }
+
+    fields.forEach(f=>{
+      f.el.addEventListener('input', ()=>validateField(f));
+      f.el.addEventListener('blur',  ()=>validateField(f));
+    });
+
+    function setLoading(on){
+      submitBtn.disabled = on;
+      spinner.hidden = !on;
+      btnText.textContent = on ? '전송 중…' : '보내기';
+    }
+
+    function showAlert(type, text){
+      alertBox.className = 'alert ' + (type==='success'?'success':'error');
+      alertBox.textContent = text;
+      alertBox.hidden = false;
+      alertBox.setAttribute('tabindex','-1');
+      alertBox.focus({preventScroll:true});
+    }
+
+    // 취소: 팝업이면 닫기, 아니면 뒤로가기/홈
+    cancelBtn.addEventListener('click', ()=>{
+      if (window.opener && !window.opener.closed) {
+    	// 팝업으로 열린 경우: 창 닫기
+        window.close();
+      } else if (document.referrer && history.length > 1) {
+    	// 일반 브라우저 이동: 뒤로가기
+        history.back();
+      } else {
+    	// referrer 없거나 단독 접근: 메인 페이지로 이동
+        window.location.replace('/');
+      }
+    });
+
+    // 제출
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      if (honey.value){ showAlert('error','전송 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.'); return; }
+      if (!validateForm()) return;
+
+      setLoading(true);
+      alertBox.hidden = true;
+
+      const fd = new FormData(form);
+      fd.append('_token', String(Date.now()));
+
+      const ctl = new AbortController();
+      const tm = setTimeout(()=>ctl.abort(), 15000);
+
+      try{
+        const res = await fetch(form.action, {
+          method:'POST', body:fd, headers:{'Accept':'application/json'}, signal:ctl.signal
+        });
+        clearTimeout(tm);
+
+        if (res.ok){
+          showAlert('success','Thanks! 메시지가 정상적으로 전송되었습니다.');
+          form.reset(); fields[0].el.focus();
+
+          setTimeout(()=>{
+            if (window.opener && !window.opener.closed) { window.close(); }
+            else if (document.referrer && history.length > 1) { history.back(); }
+            else { window.location.replace('/'); }
+          }, 1200);
+        } else {
+          const data = await res.json().catch(()=> ({}));
+          const msg = (data && data.errors && data.errors[0] && data.errors[0].message)
+            ? data.errors[0].message
+            : '전송에 실패했습니다. 잠시 후 다시 시도해 주세요.';
+          showAlert('error', msg);
+        }
+      } catch(err){
+        showAlert('error','네트워크 오류가 발생했습니다. 연결 상태를 확인해 주세요.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    // 제출 중 Enter 스팸 방지
+    form.addEventListener('keydown', (e)=>{
+      if ((e.key === 'Enter' || e.keyCode === 13) && submitBtn.disabled) e.preventDefault();
+    });
+  })();
+  </script>
+</body>
+</html>
