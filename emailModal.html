@@ -279,21 +279,34 @@
    	  });
 
     // 제출
-    form.addEventListener('submit', async (e)=>{
+    form.addEventListener('submit', (e)=>{
       e.preventDefault();
-      if (honey.value){ showAlert('error','전송 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.'); return; }
-      if (!validateForm()) return;
+      if (honey.value)	 	return; 	// 봇 차단
+      if (!validateForm()) 	return;		// 클라이언트 검증
 
-      setLoading(true);
-      alertBox.hidden = true;
+      // 중복 제출만 방지(시각적 로딩 없음)
+      submitBtn.disabled = true;
+      
+      /* setLoading(true);
+      alertBox.hidden = true; */
 
+   	  // 백그라운드 전송 시도 (응답 대기 없이)
       const fd = new FormData(form);
       fd.append('_token', String(Date.now()));
 
-      const ctl = new AbortController();
-      const tm = setTimeout(()=>ctl.abort(), 15000);
+      /* const ctl = new AbortController();
+      const tm = setTimeout(()=>ctl.abort(), 15000); */
 
       try{
+    	  fetch(form.action, {
+    	      method: 'POST',
+    	      body: fd,
+    	      headers: { 'Accept': 'application/json' },
+    	      keepalive: true,              // 창 닫혀도 전송 시도 유지
+    	      cache: 'no-store'
+    	    }).catch(()=>{});
+    	  
+    	/* 
         const res = await fetch(form.action, {
           method:'POST', body:fd, headers:{'Accept':'application/json'}, signal:ctl.signal
         });
@@ -314,19 +327,30 @@
             ? data.errors[0].message
             : '전송에 실패했습니다. 잠시 후 다시 시도해 주세요.';
           showAlert('error', msg);
-        }
+        } 
       } catch(err){
         showAlert('error','네트워크 오류가 발생했습니다. 연결 상태를 확인해 주세요.');
       } finally {
         setLoading(false);
       }
+    	  */
+      } catch(_) {}
+
+      // 즉시 닫기
+      window.close();  
+      
+   	  // 닫기 실패(동일 탭 등) 시 홈으로 교체 이동(뒤로가기 사용 안 함)
+      setTimeout(()=>{
+        if (!window.closed) window.location.replace('/');
+      }, 50);
+    	  
     });
 
     // 제출 중 Enter 스팸 방지
-    form.addEventListener('keydown', (e)=>{
+    /* form.addEventListener('keydown', (e)=>{
       if ((e.key === 'Enter' || e.keyCode === 13) && submitBtn.disabled) e.preventDefault();
-    });
-  })();
+    }); */
+   })();
   </script>
 </body>
 </html>
