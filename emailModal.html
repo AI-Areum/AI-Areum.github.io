@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>AI-Areum — Portfolio | Contact — Secure Form</title>
+  <title>e-mail Secure Form</title>
   <meta name="description" content="AI-Areum 포트폴리오 보안 문의 폼. 협업 및 프로젝트 문의를 안전하게 전송하세요.">
   <meta name="robots" content="noindex,follow">
 
@@ -155,7 +155,6 @@
           <div class="btn-row">
             <button id="cancel-btn" type="button" class="btn btn-secondary">닫기</button>
             <button id="submit-btn" type="submit" class="btn btn-primary" aria-live="polite">
-              <span class="spinner" aria-hidden="true" hidden></span>
               <span class="btn-text">보내기</span>
             </button>
           </div>
@@ -188,7 +187,7 @@
     const alertBox = document.getElementById('form-alert');
     const submitBtn = document.getElementById('submit-btn');
     const cancelBtn = document.getElementById('cancel-btn');
-    const spinner = submitBtn.querySelector('.spinner');
+    /* const spinner = submitBtn.querySelector('.spinner'); */
     const btnText = submitBtn.querySelector('.btn-text');
     const honey = document.getElementById('website');
 
@@ -239,9 +238,13 @@
     });
 
     function setLoading(on){
+    /* 
       submitBtn.disabled = on;
       spinner.hidden = !on;
-      btnText.textContent = on ? '전송 중…' : '보내기';
+      btnText.textContent = on ? '전송 중…' : '보내기'; */
+      
+   	 // 중복 제출 방지를 위해 disabled만 적용 (시각적 로딩 표시 없음)
+     submitBtn.disabled = on;
     }
 
     function showAlert(type, text){
